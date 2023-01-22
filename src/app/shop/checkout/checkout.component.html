@@ -1,0 +1,74 @@
+<div id="wrapper" style="background-color: #dec7a4;">
+<app-header state="active" [orderState]="1"></app-header>
+<div  fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.xs="100">
+    <app-breadcrumb [step]='3' ></app-breadcrumb>
+  </div>
+</div>
+<section class="check-out-section pb-50">
+  <div fxLayout="column" fxFill>
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="70" fxFlex.xs="85" class="mb-30">
+              <ul class="list-group cart-summary rounded-0">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <ul class="items" >
+                          <li *ngFor="let item of userCart"><span class="qty">{{item.number}}</span>&nbsp;{{item.product.name}}</li>
+                      </ul>
+                      <ul class="amount">
+                          <li *ngFor="let item of userCart">{{(item.number*item.product.price).toFixed(2)}} €</li>
+                      </ul>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <ul class="items">
+                      <li>Sous-total ({{userCartData.len}} articles)</li>
+                      <li>Livraison : <span style="font-weight: bold;">{{currentUserDeliveryAddress.country.name}}</span></li>
+                    </ul>
+                    <ul class="amount">
+                      <li>{{(userCartData.cost).toFixed(2)}} €</li>
+                      <li>{{(userCartData.deliveryPrice).toFixed(2)}} €</li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <ul class="items">
+                          <!-- <li>TVA (20%)</li> -->
+                          <li>Total TTC</li>
+                      </ul>
+                      <ul class="amount">
+                          <!-- <li>$19</li> -->
+                          <li>{{(userCartData.cost+userCartData.deliveryPrice).toFixed(2)}} €</li>
+                      </ul>
+                  </li>
+                  <li class="list-group-item text-center" style="z-index: 1;">
+                      <!-- <button class="btn btn-success btn-lg" (click)='createOrder()'>Payer</button> -->
+                      <app-button-paypal
+                        [orderTotalPrice]="(userCartData.cost+userCartData.deliveryPrice).toFixed(2)"
+                        [itemTotalPrice]="(userCartData.cost).toFixed(2)"
+                        [deliveryPrice]="(userCartData.deliveryPrice).toFixed(2)"
+                        [userAddress]="currentUserDeliveryAddress"
+                        [user]="currentUser"
+                        [cart]="userCart"
+                      ></app-button-paypal>
+                      <!-- <div id="paypal-button-container" class="">Proceed to checkout</div> -->
+
+                  </li>
+              </ul>
+
+              <div class="delivery-info mt-20">
+                  <ul>
+                      <li>
+                          <img src="assets/img/icon/10.png" alt="icon"> Security policy (edit with Customer reassurance module)
+                      </li>
+                      <li>
+                          <img src="assets/img/icon/11.png" alt="icon"> Delivery policy (edit with Customer reassurance module)
+                      </li>
+                      <li class="mb-0">
+                          <img src="assets/img/icon/12.png" alt="icon"> Return policy (edit with Customer reassurance module)
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<app-footer></app-footer>
+</div>

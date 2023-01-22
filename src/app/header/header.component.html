@@ -1,0 +1,210 @@
+  <header class="header" [ngClass]="state+'_'" >
+    <nav [ngClass]="state" class="navbar navbar-expand-lg fixed-top " style="z-index: 10;">
+        <div class="container">
+            <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+              <img height="50px" width="50px" src="/assets/img/logo/logo.png" alt="">
+            </a>
+            <div style="display: flex;align-items: center;" >
+              <div *ngIf="orderState == 0" style="position: relative;" class="cart_button_mobile"  >
+                <a href="javascript:void(0)" class="cart-header "  *ngIf="!isAuth" onclick="showCart()">
+                  <span class="cart_quantity " style="font-weight: bold;left: 5px;top: 11px;">
+                    {{cartData.len}}
+                  </span>
+                  <i class="ti-bag"></i>
+                </a>
+                <a href="javascript:void(0)" class="cart-header " *ngIf="isAuth"  onclick="showCart()">
+                  <span class="cart_quantity " style="font-weight: bold;left: 5px;top: 11px;">
+                    {{userCartData.len}}
+                  </span>
+                  <i class="ti-bag"></i>
+                </a>
+              </div>
+              <div *ngIf="orderState == 1" style="position: relative;" class="cart_button_mobile"  >
+                <a href="javascript:void(0)" class="cart-header "  *ngIf="!isAuth" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  <span class="cart_quantity " style="font-weight: bold;left: 5px;top: 11px;">
+                    {{cartData.len}}
+                  </span>
+                  <i class="ti-bag"></i>
+                </a>
+                <a href="javascript:void(0)" class="cart-header " *ngIf="isAuth"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  <span class="cart_quantity " style="font-weight: bold;left: 5px;top: 11px;">
+                    {{userCartData.len}}
+                  </span>
+                  <i class="ti-bag"></i>
+                </a>
+              </div>
+              <button style="margin-left: 8px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right" >
+                <i class="fa fa-bars" style="color: #efd7b4;font-size: 25px;"></i>
+              </button>
+            </div>
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="javascript:void(0)" class="nav-link text-uppercase font-weight-bold" routerLink="/home"><i  class="fas fa-home"></i>&nbsp;Accueil <span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" href="javascript:void(0)" routerLink="/shop/1" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+                        Secret de Mafa
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" href="javascript:void(0)" routerLink="/shop/2" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+                        Maison AyaHelen
+                      </a>
+                    </li >
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i  class="fas fa-user"></i>&nbsp;Mon compte <span *ngIf="isAuth" style="font-size: xx-small;">&nbsp;<i style="background-color: chartreuse;border-radius: 50%;height: 8px;width: 8px;" class="connected-circle"></i></span>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" *ngIf="isAuth" href="javascript:void(0)" routerLink="/my-orders">
+                          <!-- <i class="fas fa-file-invoice-dollar"></i> -->
+                          &nbsp;&nbsp;&nbsp;Mes commandes</a>
+                        <a class="dropdown-item" *ngIf="isAuth" href="javascript:void(0)" routerLink="/my-deliveries">
+                          <!-- <i class="fas fa-map-pin"></i> -->
+                          &nbsp;&nbsp;&nbsp;Mes adresses de livraison</a>
+                        <a class="dropdown-item" *ngIf="isAuth && user.type==1" href="javascript:void(0)" routerLink="/edit-user">
+                          <!-- <i class="fas fa-user-edit"></i> -->
+                          &nbsp;&nbsp;&nbsp;Modifier mes informations</a>
+                        <a class="dropdown-item" *ngIf="isAuth && user.type==1" href="javascript:void(0)" routerLink="/edit-password">
+                          <!-- <i class="fas fa-edit"></i> -->
+                          &nbsp;&nbsp;&nbsp;Modifier le mot de passe</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item" *ngIf="!isAuth" routerLink="/login">Se connecter &nbsp; <i class="fas fa-key"></i></a>
+                        <a href="javascript:void(0)" class="dropdown-item" *ngIf="!isAuth" routerLink="/register">Créer un compte &nbsp; <i class="fas fa-user-plus"></i></a>
+                        <a href="javascript:void(0)" class="dropdown-item" *ngIf="isAuth"  data-toggle="modal" data-target="#btnLogout">Se déconnecter &nbsp; <i class="fas fa-sign-out-alt"></i> </a>
+                      </div>
+                    </li>
+                    <div *ngIf="orderState == 0"  class="cart_button">
+                      <button  class="nav-link hide-mobile "  *ngIf="!isAuth"  onclick="showCart()"><span class="cart_quantity " style="font-weight: bold;left: 5px;top: 17px;">{{cartData.len}}</span><i class="ti-bag "></i> {{(cartData.cost).toFixed(2)}} €</button>
+                      <button  class="nav-link hide-mobile " *ngIf="isAuth"   onclick="showCart()"><span class="cart_quantity " style="font-weight: bold;left: 5px;top: 17px;">{{userCartData.len}}</span><i class="ti-bag "></i> {{(userCartData.cost).toFixed(2)}} €</button>
+                    </div>
+                    <div *ngIf="orderState == 1"  class="cart_button">
+                      <button  class="nav-link hide-mobile "  *ngIf="!isAuth"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="cart_quantity " style="font-weight: bold;left: 5px;top: 17px;">{{cartData.len}}</span><i class="ti-bag "></i> {{(cartData.cost).toFixed(2)}} €</button>
+                      <button  class="nav-link hide-mobile " *ngIf="isAuth"   data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="cart_quantity " style="font-weight: bold;left: 5px;top: 17px;">{{userCartData.len}}</span><i class="ti-bag "></i> {{(userCartData.cost).toFixed(2)}} €</button>
+                    </div>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+  </header>
+
+  <app-cart></app-cart>
+  <app-modal-logout ></app-modal-logout>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Commande en cours</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            Vous avez déjà une commande en cours, veuillez d'abord la terminer ou l'annuler pour la modifier!
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" routerLink="/home">Annuler la commande</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <header class="header_area background-overlay-white" style="background-image: url(assets/img/car1.jpg);margin-bottom: 30px;">
+    <div class="top_header_areabg-img ">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center " style="justify-content: space-between; padding: 10px 10px 0px;">
+                <div class="header-right-side-menu ml-15">
+                  <a href="javascript:void(0)" id="sideMenuBtn" onclick="openNav()">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div class="top_logo">
+                </div>
+
+                <div >
+                    <div  id="header-cart-menu" >
+
+                        <div class="cart" >
+                            <a href="javascript:void(0)" id="header-cart-btn" *ngIf="!isAuth" [routerLink]="['/cart']"><span class="cart_quantity" style="font-weight: bold;">{{cartData.len}}</span> <i class="ti-bag"></i>{{(cartData.cost).toFixed(2)}} €</a>
+                            <a href="javascript:void(0)" id="header-cart-btn" *ngIf="isAuth"  [routerLink]="['/cart']"><span class="cart_quantity" style="font-weight: bold;">{{userCartData.len}}</span> <i class="ti-bag"></i>{{(userCartData.cost).toFixed(2)}} €</a>
+
+                            <ul class="cart-list" *ngIf="!isAuth">
+                                <li *ngFor="let item of cart">
+                                    <a href="#" class="image"><img [src]="prefUrlImage+item.product.image" class="cart-thumb" alt=""></a>
+                                    <div class="cart-item-desc">
+                                        <h6><a href="#">{{item.product.name}}</a></h6>
+                                        <p>{{item.number}}x - <span class="price">{{item.product.price}} €</span></p>
+                                    </div>
+                                    <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
+                                </li>
+                                <li class="total">
+                                    <span class="pull-right">Total:  {{cartData.cost}} €</span>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-cart" routerLink='/cart'    >Aller au panier</a>
+                                    <a href="javascript:void(0)" routerLink='/delivery' class="btn btn-sm btn-checkout" >Passer au paiement</a>
+                                </li>
+                            </ul>
+
+                            <ul class="cart-list" *ngIf="isAuth" id="cart-list-area">
+                                <li *ngFor="let item of userCart">
+                                    <a href="#" class="image"><img [src]="prefUrlImage+item.product.image" class="cart-thumb" alt=""></a>
+                                    <div class="cart-item-desc">
+                                        <h6><a href="#">{{item.product.name}} </a></h6>
+                                        <p>{{item.number}}x - <span class="price">{{item.product.price}} €</span></p>
+                                    </div>
+                                    <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
+                                </li>
+                                <li class="total">
+                                    <span class="pull-right">Total:  {{userCartData.cost}} €</span>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-cart" routerLink='/cart'>Aller au panier</a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-checkout" routerLink='/delivery'>Passer au paiement</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main_header_area">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 d-md-flex justify-content-between justify-content-md-center">
+
+                    <div class="main-menu-area " >
+                        <nav class="navbar navbar-expand-lg align-items-start">
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>
+
+                            <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                <ul class="navbar-nav animated" id="nav">
+                                    <li class="nav-item "><a class="nav-link" routerLink="/home">Accueil</a></li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Boutiques</a>
+                                        <div class="dropdown-menu" aria-labelledby="karlDropdown">
+                                            <a class="dropdown-item" routerLink="/shop/1">Secret de Mafa</a>
+                                            <a class="dropdown-item" routerLink="/shop/2">Maison Ayahelen</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="javascrip:void(0)">A propos de nous</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="javascrip:void(0)" routerLink="/contact">Contacts</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </header>  py-3 -->

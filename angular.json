@@ -26,7 +26,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/active.js"
+
+            ]
           },
           "configurations": {
             "production": {
@@ -87,9 +90,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+
+              "../node_modules/animate.css/animate.css"
             ],
-            "scripts": []
+            "scripts": [
+
+              "../node_modules/wowjs/dist/wow.js"
+            ]
           }
         },
         "lint": {
@@ -120,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "initshop"
+  "defaultProject": "initshop",
+  "cli": {
+    "analytics": "44eafa5d-6ae6-415d-ab95-1adde0c854ad"
+  }
 }

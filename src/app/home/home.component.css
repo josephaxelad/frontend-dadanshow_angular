@@ -1,0 +1,136 @@
+.mobile-only{
+  display: none;
+}
+
+#top_catagory_area-hide-mobile{
+  margin: 0px 75px;
+  height: 500px;
+}
+
+@media (max-width: 640px) {
+  .mobile-only{
+    display: block;
+  }
+  #top_catagory_area{
+    margin: 0px 15px;
+  }
+  .single_catagory_area{
+    height: 500px;
+  }
+
+}
+
+.card-body{
+  padding: 0;
+}
+
+.card{
+  border: none;
+  /* background-color: #f5f5f5; */
+}
+#product-name{
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 44px;
+  margin: 0px;
+  font-weight: bold;
+  font-family:'Courier New', Courier, monospace, sans-serif;
+  color: rgb(107, 106, 106);
+}
+.item2{
+  background-color: whitesmoke;
+  padding: 40px 20px;
+  margin-top: 25px;
+}
+
+.a-see-more{
+  padding-top: 20px;
+  display: flex;
+  justify-items: flex-end;
+}
+@media (max-width: 900px){
+  .item{
+    color: white;
+    padding: 10px;
+
+    opacity: 0.9;
+  }
+  .text-headline{
+    color: white;
+  }
+  #block1-item1{
+    background-color: #F4D095 ;
+  }
+  #block2-item1{
+    background-color: #BB8950;
+  }
+  .btn-see-shop{
+    display: none;
+  }
+  .carousel-item{
+    height: 110vw;
+  }
+}
+
+@media (min-width: 900px) {
+
+  .a-see-more{
+    display: none;
+  }
+  .item2{
+    background-color: whitesmoke;
+    padding: 40px 20px;
+    margin-top: 25px;
+  }
+  .text-headline{
+    color: white;
+  }
+  .item{
+    color: white;
+    padding: 20px;
+
+    opacity: 0.9;
+  }
+  #block1-item1{
+    background-color: #F4D095 ;
+    margin-top: 70px;
+  }
+  #block2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+  }
+  #block2-item1{
+    grid-area: 1/2/2/3;
+    background-color:#BB8950 ;
+  }
+  #block2-item2{
+    grid-area: 1/1/2/2;
+  }
+}
+
+.carousel-item {
+  /* 65vh,50vw */
+  height: 40vw;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* Change navbar styling on small viewports */
+@media (max-width: 991.98px) {
+  .main{
+    margin-top: 75px;
+  }
+}
+
+.animate__animated.animate__pulse {
+  --animate-duration: 7s;
+}

@@ -1,0 +1,509 @@
+  <div id="cart" class="fixed inset-0 z-30 transition duration-300 cart-container opacity-100 pointer-events-auto ">
+    <div id="cart_" class="absolute inset-y-0 right-0 w-full transition duration-300 bg-gray-100 max-w-133 translate-x-0  "style="background-color: #f8f9fa;">
+       <button class="absolute top-0 left-0 hidden transform -translate-x-full md:block" onclick="hideCart()"  >
+          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="fill-current h-auto">
+             <rect y="0.00012207" width="32" height="32" fill="black"></rect>
+             <path d="M20.3043 22.0001L21.9739 20.3306L17.6696 16.0262L22 11.6958L20.3043 10.0001L15.9739 14.3306L11.6696 10.0001L10 11.6958L14.3043 16.0262L10 20.3306L11.6957 22.0001L15.9739 17.6958L20.3043 22.0001Z" fill="white"></path>
+          </svg>
+       </button>
+       <div class="flex flex-col h-full">
+          <header id="header-cart" class="px-0 pt-3 md:pt-8 md:px-11">
+             <div class="flex items-center justify-between px-3 md:px-0">
+                <button  class="md:hidden" onclick="hideCart()">
+                   <svg  width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="fill-current h-auto w-5">
+                      <path  d="M3.55492 26.1823L26.1823 3.55492L28.4451 5.81766L5.81766 28.4451L3.55492 26.1823Z"></path>
+                      <path  d="M5.81767 3.55492L28.4451 26.1823L26.1823 28.4451L3.55493 5.81766L5.81767 3.55492Z"></path>
+                   </svg>
+                </button>
+
+             </div>
+             <div  class="px-3 py-4    border-gray-500 md:px-0 md:mt-4">
+              <div class="container-fluid  border-gray-500 ">
+                <div class="row">
+                  <div class="col-12" style="display: flex;justify-content:space-between;align-items: center;">
+                    <span class="font-medium text-16 md:text-20" style="font-weight: bold;text-decoration: underline;font-size: x-large;margin-bottom: 8px;" >Panier&nbsp;<span><i class="fas fa-shopping-cart"></i></span></span>
+                    <h5 *ngIf="cart.length" class="title   text-capitalize" >Total: {{(cartData.cost).toFixed(2)}} €</h5>
+                    <h5 *ngIf="userCart.length" class="title  text-capitalize" >Total: {{(userCartData.cost).toFixed(2)}} €</h5>
+                  </div>
+                </div >
+              </div>
+             </div>
+             <div *ngIf="!userCart.length && !cart.length" class="px-3 py-4 mt-3   border-gray-500 md:px-0 md:mt-4">
+              <div class="container  border-gray-500 " >
+                <div fxLayout="column">
+                  <div fxLayout="row" fxFlex="50px" fxLayoutAlign="center center" style="background-color: whitesmoke;border: 1px solid yellow;">
+                    <span><i class="fas fa-exclamation-triangle"></i>&nbsp;</span><h5 class="titletext-capitalize">Votre panier est vide !</h5>
+                  </div>
+                </div >
+              </div>
+             </div>
+          </header>
+
+          <div *ngIf="cart.length" class="h-full overflow-y-auto flex flex-col">
+             <div class="px-3 mb-3 md:px-11 md:mb-4">
+                <div *ngFor="let item of cart" class="mt-3 md:mt-4">
+                   <div class="flex items-center justify-between text-11 md:text-12">
+                      <div class="flex-shrink-0 pr-3">
+                          <a href="javascript:void(0)" class="relative flex items-center justify-center">
+                            <!-- <span class="badge badge-danger top-right" style="left: 0;right: 0;background-color: red !important; ">Stock insuffisant</span> -->
+                            <img [src]="prefUrlImage+item.product.image" class="object-contain w-20 bg-gray-300 twic twic-blur h-17 twic-done">
+                            <div class="absolute flex items-center justify-center w-full h-full transition-opacity duration-300 opacity-0">
+                            </div>
+                          </a>
+                      </div>
+                      <div class="flex-grow">
+                         <div>
+                            <a href="javascript:void(0)" class="">
+                               <span class="block font-medium leading-tight">{{(item.product.name)}}  </span>
+                            </a>
+                         </div>
+                         <div class="flex items-center block mt-1 md:hidden">
+                           <button (click)="deleteFromCart(item.product)" class="w-8 h-8 border border-r-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> - </button>
+                           <input [value]="item.number" type="number" readonly="readonly" tabindex="-1" class="w-10 h-8 text-center  border border-gray-500 text-11 md:text-14" style="background-color: white;">
+                           <button (click)="addToCart(item.product)" class="w-8 h-8 border border-l-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> + </button>
+                          </div>
+                      </div>
+                      <div class="items-center hidden md:flex">
+                         <div class="flex items-center">
+                           <button (click)="deleteFromCart(item.product)" class="w-8 h-8 border border-r-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> - </button>
+                           <input [value]="item.number" type="number" readonly="readonly" tabindex="-1" class="w-10 h-8 text-center  border border-gray-500 text-11 md:text-14" style="background-color: white;">
+                           <button (click)="addToCart(item.product)"  class="w-8 h-8 border border-l-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> + </button>
+                          </div>
+                      </div>
+                      <div class="flex-shrink-0 ml-2 text-right w-14">
+                         <span class="block"> {{(item.product.price*item.number).toFixed(2)}} €</span>
+                      </div>
+                      <div class=" ml-2 text-right w-14">
+                        <a href="javascript:void(0)" (click)="removeElementOfCart(null,item.product)"> <span class="trash"><i class="fas fa-trash-alt"></i> </span></a>
+                      </div>
+                   </div>
+
+                </div>
+             </div>
+          </div>
+
+          <div *ngIf="userCart.length" class="h-full overflow-y-auto flex flex-col">
+            <div class="px-3 mb-3 md:px-11 md:mb-4">
+              <div *ngFor="let item of userCart" class="mt-3 md:mt-4">
+                 <div class="flex items-center justify-between text-11 md:text-12">
+                    <div class="flex-shrink-0 pr-3">
+                       <a href="javascript:void(0)" class="relative flex items-center justify-center">
+                          <span class="badge badge-danger top-right" style="left: 0;right: 0;background-color: red !important; ">Stock insuffisant</span>
+                          <img [src]="prefUrlImage+item.product.image" class="object-contain w-20 bg-gray-300 twic twic-blur h-17 twic-done">
+                          <div class="absolute flex items-center justify-center w-full h-full transition-opacity duration-300 opacity-0">
+                          </div>
+                       </a>
+                    </div>
+                    <div class="flex-grow" >
+                       <div >
+                          <a href="javascript:void(0)" class="">
+                             <span class="block font-medium leading-tight">{{(item.product.name)}}  </span>
+                          </a>
+                       </div>
+                       <div class="flex items-center block mt-1 md:hidden">
+                         <button (click)="deleteFromCart(item.product)" class="w-8 h-8 border border-r-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> - </button>
+                         <input [value]="item.number" type="number" readonly="readonly" tabindex="-1" class="w-10 h-8 text-center  border border-gray-500 text-11 md:text-14" style="background-color: white;">
+                         <button (click)="addToCart(item.product)" class="w-8 h-8 border border-l-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> + </button>
+                        </div>
+                    </div>
+                    <div class="items-center hidden md:flex" >
+                       <div class="flex items-center">
+                         <button (click)="deleteFromCart(item.product)" class="w-8 h-8 border border-r-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> - </button>
+                         <input [value]="item.number" type="number" readonly="readonly" tabindex="-1" class="w-10 h-8 text-center  border border-gray-500 text-11 md:text-14" style="background-color: white;">
+                         <button (click)="addToCart(item.product)"  class="w-8 h-8 border border-l-0 border-gray-500 md:border-0 text-13 md:text-14" style="background-color: white;"> + </button>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 ml-2 text-right w-14">
+                       <span class="block"> {{(item.product.price*item.number).toFixed(2)}} €</span>
+                    </div>
+                    <div class=" ml-2 text-right w-14">
+                      <a href="javascript:void(0)" (click)="removeElementOfCart(null,item.product)"> <span class="trash"><i class="fas fa-trash-alt"></i> </span></a>
+                    </div>
+                 </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="container  " *ngIf="!userCart.length && !cart.length">
+            <div class="row">
+              <div class="col-12">
+                <div class="cart-footer d-flex mt-30">
+                  <div class="back-to-shop w-50" >
+                      <a href="javascript:void(0)" onclick="hideCart()" >Retourner aux achats</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <footer *ngIf="userCart.length || cart.length" class="px-3 pb-3  md:pb-8 md:px-11" style="background-color:#f8f9fa;">
+             <div   class="flex mt-3 md:mt-5  " fxLayout="row" >
+                <a href="javascript:void(0)" onclick="hideCart()" class="button-cart_" fxFlex="100" routerLink="/delivery">Commander</a>
+                <!-- <button  class="inline-flex items-center justify-center font-medium leading-none tracking-wider text-center uppercase transition duration-200 border cursor-pointer relative flex-1 w-full overflow-hidden h-14 px-2 text-14 bg-black text-white border-black hover:bg-transparent hover:text-black">
+                   <span  class="absolute top-0 flex items-center h-full transition-transform duration-300 transform translate-y-0"> Commander — 7,90&nbsp;€ </span>
+                </button> -->
+             </div>
+          </footer>
+       </div>
+    </div>
+ </div>
+
+
+
+
+ <!-- <app-breadcrumb [step]='1'*ngIf="userCart.length || cart.length"></app-breadcrumb>
+  <div  class="cart_area section_padding_100 clearfix">
+    <div class="container hide-mobile" *ngIf="userCart.length">
+      <div class="row ">
+          <div class="col-lg-8 col-12">
+              <div class="cart-table clearfix">
+                  <table class="table table-responsive">
+                      <thead>
+                          <tr>
+                              <th>Article</th>
+                              <th>Prix</th>
+                              <th>Quantité</th>
+                              <th>Total</th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let item of userCart">
+                              <td class="cart_product_img d-flex align-items-center">
+                                  <a href="javascript:void(0)"><img [src]="prefUrlImage+item.product.image" alt="Product"></a>
+                                  <h6>{{item.product.name}}</h6>
+                              </td>
+                              <td class="price"><span> {{(item.product.price)}} €</span></td>
+                              <td class="text-center">
+                                <div class="product-count style">
+                                    <div class="count d-flex justify-content-center">
+                                        <input type="text" [value]="item.number" disabled>
+                                        <div class="button-group">
+                                            <button class="count-btn increment" (click)="addToCart(item.product)"><i
+                                              class="fas fa-chevron-up"></i></button>
+                                            <button class="count-btn decrement" (click)="deleteFromCart(item.product)"><i
+                                              class="fas fa-chevron-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                              <td class="total_price"><span>{{(item.product.price*item.number).toFixed(2)}} €</span></td>
+                              <td class="text-center">
+                                <a href="javascript:void(0)" (click)="removeElementOfCart(null,item.product)"> <span class="trash"><i class="fas fa-trash-alt"></i> </span></a>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="cart-footer d-flex mt-30" style="margin-bottom: 25px;">
+                  <div class="back-to-shop w-50">
+                      <a href="javascript:void(0)" [routerLink]="['/shop/1']"  >Continuez vos achats</a>
+                  </div>
+                  <div class="update-checkout w-50 text-right">
+                      <a href="javascript:void(0)" (click)="removeAllElementOfCart()">Vider le panier</a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4 col-12">
+              <div class="col-12 col-md-6 col-lg-12">
+
+              </div>
+              <div class="col-12 col-lg-12 ship">
+                  <div class="cart-total-area ">
+
+
+                      <ul class="cart-total-chart">
+                          <li><span>Sous-total</span> <span>{{ (userCartData.cost).toFixed(2) }}€</span></li>
+                          <li><span>Livraison</span> <span>à déterminer</span></li>
+                          <li><span><strong>Total</strong></span> <span><strong>{{(userCartData.cost).toFixed(2)}}€</strong></span></li>
+                      </ul>
+                      <a href="javascript:void(0)" class="btn karl-checkout-btn" routerLink="/delivery">Continuer</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="container hide-mobile" *ngIf="cart.length">
+      <div class="row ">
+        <div class="col-lg-8 col-12">
+          <div class="cart-table clearfix">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Article</th>
+                  <th>Prix</th>
+                  <th>Quantité</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of cart">
+                      <td class="cart_product_img d-flex align-items-center">
+                          <a href="#"><img [src]="prefUrlImage+item.product.image" alt="Product"></a>
+                          <h6>{{item.product.name}}</h6>
+                      </td>
+                      <td class="price"><span> {{(item.product.price)}} €</span></td>
+                      <td class="text-center">
+                        <div class="product-count style">
+                            <div class="count d-flex justify-content-center">
+                                <input type="text" [value]="item.number" disabled>
+                                <div class="button-group">
+                                    <button class="count-btn increment" (click)="addToCart(item.product)"><i
+                                      class="fas fa-chevron-up"></i></button>
+                                    <button class="count-btn decrement" (click)="deleteFromCart(item.product)"><i
+                                      class="fas fa-chevron-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                      </td>
+                      <td class="total_price"><span>{{(item.product.price*item.number).toFixed(2)}} €</span></td>
+                      <td class="text-center">
+                        <a href="javascript:void(0)" (click)="removeElementOfCart(null,item.product)"> <span class="trash"><i class="fas fa-trash-alt"></i> </span></a>
+                      </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="cart-footer d-flex mt-30" style="margin-bottom: 25px;">
+              <div class="back-to-shop w-50">
+                  <a href="javascript:void(0)"  [routerLink]="['/shop/1']">Continuez vos achats</a>
+              </div>
+              <div class="update-checkout w-50 text-right">
+                  <a href="javascript:void(0)" (click)="removeAllElementOfCart()">Vider le panier</a>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="col-12 col-lg-12">
+                <div class="cart-total-area ">
+                    <div class="cart-page-heading">
+                        <h5>Montant Total du panier</h5>
+                        <p>Final info</p>
+                    </div>
+
+                    <ul class="cart-total-chart">
+                      <li><span>Sous-total</span> <span>{{ (cartData.cost).toFixed(2) }}€</span></li>
+                      <li><span>Livraison</span> <span>à déterminer</span></li>
+                      <li><span><strong>Total</strong></span> <span><strong>{{(cartData.cost).toFixed(2)}}€</strong></span></li>
+                  </ul>
+                    <a href="javascript:void(0)" class="btn karl-checkout-btn" routerLink="/delivery">Continuer</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container " *ngIf="!userCart.length && !cart.length">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="title mb-30 pb-25 text-capitalize">Votre panier est vide</h3>
+        </div>
+      </div >
+      <div class="row">
+        <div class="col-12">
+          <div class="cart-footer d-flex mt-30">
+            <div class="back-to-shop w-50" >
+                <a href="javascript:void(0)" [routerLink]="['/shop/1']" >Retourner aux achats</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mobile-only" *ngIf="userCart.length">
+      <div id="grid-cart-mobile" *ngFor="let item of userCart" >
+        <div id="grid-cart-item-image">
+          <a href="javascript:void(0)"><img height="95" width="99" [src]="prefUrlImage+item.product.image" alt="Product"></a>
+        </div>
+        <div id="grid-cart-item-name">{{item.product.name}}</div>
+        <div id="grid-cart-item-price">{{(item.product.price*item.number).toFixed(2)}} €</div>
+        <button id="grid-cart-item-min" (click)="deleteFromCart(item.product)">
+          <i class="fas fa-minus" style="color: white;"></i>
+        </button>
+        <div id="grid-cart-item-counter">
+          <input type="text" disabled [value]="item.number" style="width: 40px;text-align: center;background-color: white;height: 23px;">
+        </div>
+        <button id="grid-cart-item-plus" (click)="addToCart(item.product)">
+          <i class="fas fa-plus" style="color: white;"></i>
+        </button>
+        <div id="grid-cart-item-del"><button (click)="removeElementOfCart(null,item.product)"><span class="trash"><i class="fas fa-trash-alt"></i> </span></button></div>
+      </div>
+      <div class="cart-footer d-flex mt-30" style="margin-bottom: 25px;">
+        <div class="back-to-shop w-50">
+            <a href="javascript:void(0)" [routerLink]="['/shop/1']"  >Continuez vos achats</a>
+        </div>
+        <div class="update-checkout w-50 text-right">
+            <a href="javascript:void(0)" (click)="removeAllElementOfCart()">Vider le panier</a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-12" style="padding: 0;">
+        <div class="col-12 col-lg-12 ship">
+            <div class="cart-total-area mt-20">
+                <ul class="cart-total-chart">
+                    <li><span>Sous-total</span> <span>{{ (userCartData.cost).toFixed(2) }}€</span></li>
+                    <li><span>Livraison</span> <span>à déterminer</span></li>
+                    <li><span><strong>Total</strong></span> <span><strong>{{(userCartData.cost).toFixed(2)}}€</strong></span></li>
+                </ul>
+                <a href="javascript:void(0)" class="btn karl-checkout-btn" routerLink="/delivery">Continuer</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mobile-only" *ngIf="cart.length">
+      <div id="grid-cart-mobile" *ngFor="let item of cart" >
+        <div id="grid-cart-item-image">
+          <a href="javascript:void(0)"><img height="95" width="99" [src]="prefUrlImage+item.product.image" alt="Product"></a>
+        </div>
+        <div id="grid-cart-item-name">{{item.product.name}}</div>
+        <div id="grid-cart-item-price">{{(item.product.price*item.number).toFixed(2)}} €</div>
+        <button id="grid-cart-item-min" (click)="deleteFromCart(item.product)">
+          <i class="fas fa-minus" style="color: white;"></i>
+        </button>
+        <div id="grid-cart-item-counter">
+          <input type="text" disabled [value]="item.number" style="width: 40px;text-align: center;background-color: white;height: 23px;">
+        </div>
+        <button id="grid-cart-item-plus" (click)="addToCart(item.product)">
+          <i class="fas fa-plus" style="color: white;"></i>
+        </button>
+        <div id="grid-cart-item-del"><button (click)="removeElementOfCart(null,item.product)"><span class="trash"><i class="fas fa-trash-alt"></i> </span></button></div>
+      </div>
+      <div class="cart-footer d-flex mt-30" style="margin-bottom: 25px;">
+        <div class="back-to-shop w-50">
+            <a href="javascript:void(0)" [routerLink]="['/shop/1']"  >Continuez vos achats</a>
+        </div>
+        <div class="update-checkout w-50 text-right">
+            <a href="javascript:void(0)" (click)="removeAllElementOfCart()">Vider le panier</a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-12" style="padding: 0;">
+        <div class="col-12 col-lg-12 ship">
+            <div class="cart-total-area mt-20">
+                <ul class="cart-total-chart">
+                    <li><span>Sous-total</span> <span>{{ (cartData.cost).toFixed(2) }}€</span></li>
+                    <li><span>Livraison</span> <span>à déterminer</span></li>
+                    <li><span><strong>Total</strong></span> <span><strong>{{(cartData.cost).toFixed(2)}}€</strong></span></li>
+                </ul>
+                <a href="javascript:void(0)" class="btn karl-checkout-btn" routerLink="/delivery">Continuer</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer> -->
+
+<!-- <section>
+  <div class="coupon-code-area mt-70">
+                    <div class="cart-page-heading">
+                        <h5>Cupon code</h5>
+                        <p>Enter your cupone code</p>
+                    </div>
+                    <form action="#">
+                        <input type="search" name="search" placeholder="#569ab15">
+                        <button type="submit">Apply</button>
+                    </form>
+                </div>
+  <div class="col-12 col-md-6 col-lg-12" >
+                    <div class="shipping-method-area " >
+                        <div class="cart-page-heading">
+                            <h5>Méthodes de livraison</h5>
+                            <p>Choisissez une méthode</p>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio3"><span>Livraison gratuite</span><span>0 €</span></label>
+                        </div>
+                    </div>
+                </div>
+  <nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <div class="section-title text-center mb-15">
+                      <h2 class="title text-dark text-capitalize">cart</h2>
+                  </div>
+              </div>
+              <div class="col-12">
+                  <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">cart</li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+  </nav>
+  <section class="whish-list-section theme1 pt-80 pb-80">
+      <div class="container" *ngIf="cart.length">
+          <div class="row">
+              <div class="col-12">
+                  <h3 class="title mb-30 pb-25 text-capitalize">Your cart items</h3>
+                  <div class="table-responsive">
+                      <table class="table">
+                          <thead class="thead-light">
+                              <tr>
+                                  <th class="text-center" scope="col">Product Image</th>
+                                  <th class="text-center" scope="col">Product Name</th>
+
+                                  <th class="text-center" scope="col">Qty</th>
+                                  <th class="text-center" scope="col">Price</th>
+                                  <th class="text-center" scope="col">action</th>
+
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let cart of cart">
+                                  <th class="text-center" scope="row">
+                                      <img [src]="prefUrlImage+cart.product.image" alt="img">
+                                  </th>
+                                  <td class="text-center">
+                                      <span class="whish-title">{{cart.product.name}}</span>
+                                  </td>
+
+                                  <td class="text-center">
+                                      <div class="product-count style">
+                                          <div class="count d-flex justify-content-center">
+                                              <input type="text" [value]="cart.number"disabled>
+                                              <div class="button-group">
+                                                  <button class="count-btn increment" (click)="addToCart(cart.product)"><i
+                                                    class="fas fa-chevron-up"></i></button>
+                                                  <button class="count-btn decrement" (click)="deleteFromCart(cart.product)"><i
+                                                    class="fas fa-chevron-down"></i></button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td class="text-center">
+                                      <span class="whish-list-price">
+                                    {{(cart.number*cart.product.price).toFixed(2)}} €
+                                </span></td>
+
+                                  <td class="text-center">
+                                      <a href="javascript:void(0)"> <span class="trash"><i class="fas fa-trash-alt"></i> </span></a>
+                                  </td>
+
+                              </tr>
+
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <div class="col-12">
+                  <a routerLink="/checkout" class="btn btn-block theme-btn--dark1 btn--lg mt-70">buy now</a>
+              </div>
+          </div>
+      </div>
+      <div class="container" *ngIf="!cart.length">
+          <h3 class="title mb-30 pb-25 text-capitalize">Your cart is empty</h3>
+          <a routerLink="/shop" class="btn btn-block theme-btn--dark1 btn--lg mt-70">Go back to shop</a>
+      </div>
+  </section>
+</section> -->
+
+
+
+
+

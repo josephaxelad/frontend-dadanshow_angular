@@ -1,0 +1,61 @@
+<app-sidenav></app-sidenav>
+<div id="wrapper" style="background-color: #dec7a4;">
+<app-header state="active" ></app-header>
+<div class="my-account pt-40 pb-80">
+<div class="container-fluid">
+  <div class="row" *ngIf="userOrders.length">
+    <div class="col-12">
+      <h3 class="title text-capitalize mb-30 pb-25 text-center titre" >Mes commandes</h3>
+    </div>
+    <div class="col-12 col-lg-9" style="margin: auto ;">
+      <ul class="list-group" >
+        <li class="list-group-item" *ngFor="let userOrder of userOrders">
+          <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#order-details'+ userOrder.idOrder ">
+            <div style="display: flex;justify-content: space-between;align-items: flex-start;">
+              <div>{{userOrder.createDat | date:'dd/MM/y' }}</div>
+              <!-- <div>{{userOrder.state}}<i class="fas fa-check-circle" style="color: chartreuse;"></i></div> -->
+              <div *ngIf="userOrder.state==2"><span style="font-size: 12px;">Livrée</span> <i class="fas fa-check-circle" style="color: chartreuse;"></i></div>
+              <div *ngIf="userOrder.state==1" style="display: flex;align-items: center;">En cours<span style="font-size: 12px;"> </span> <i class="fas fa-minus" style="color: darkorange;"></i></div>
+            </div>
+            <div  style="display: flex;justify-content: space-between;align-items: flex-end;padding-top: 10px;">
+              <div id="my-order-price">{{userOrder.price}} €</div>
+              <div ><a style="font-weight: bold;color: black;" href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#order-details'+ userOrder.idOrder ">détails <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <!-- <table class="table table-responsive">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Date </th>
+            <th scope="col">N° de la commande</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Statut</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userOrder of userOrders" >
+            <td scope="col"> {{userOrder.createDat}} </td>
+            <td scope="col"> {{userOrder.idOrder}} </td>
+            <td scope="col">  {{userOrder.price}} </td>
+            <td scope="col"> {{userOrder.state}} </td>
+            <td scope="col"><button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#order-details'+ userOrder.idOrder ">Détails</button></td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+  <div class="row" *ngIf="!userOrders.length">
+    <div class="col-12" >
+      <!-- <h3 class="title text-capitalize mb-30 pb-25 text-center">Mes commandes</h3> -->
+      <h3 class="title mb-30 pb-25 text-capitalize">Vous n'avez aucune commande !</h3>
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>
+</div>
+
+<app-modal-order-details></app-modal-order-details>

@@ -1,0 +1,366 @@
+<!-- <div *ngIf="true && true">
+<div class="toast "  role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed;bottom: 0;z-index: 9999;opacity: 7;">
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+    <div class="mt-2 pt-2 border-top">
+      <button type="button" class="btn btn-primary btn-sm">Take action</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+    </div>
+  </div>
+</div>
+</div> -->
+<div id="wrapper" style="background-color:transparent;">
+
+  <app-header state="navbar_"></app-header>
+  <main class="relative" >
+
+    <div>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox" style="filter: brightness(50%);">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active animate__animated animate__pulse animate__infinite	" style="background-image: url('/assets/img/carroussel/img3.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <!-- <h3 class="display-4" style="color: white;">First Slide</h3>
+              <p class="lead">This is a description for the first slide.</p> -->
+            </div>
+          </div>
+
+        </div>
+        <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a> -->
+      </div>
+
+      <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_heading text-center">
+                    <div style="margin-top: 10px;height: 1px;width: 100%;background-color: rgb(255, 255, 255);"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="container grid grid-cols-1 pb-9 md:pb-18 md:grid-cols-2 md:col-gap-5 " id="block1">
+        <div>
+          <div class="sticky  pt-9 md:pt-18 item" id="block1-item1" style="top: 75px;">
+            <h2 class="text-headline" style="font-family: Post Grotesk;" >Secret de Mafa</h2>
+
+            <div class="mt-5 font-mono md:mt-10 rich-text max-w-120">
+              <p style="font-family: Lettera,mono;" >Des formules composées de 10 ingrédients ou moins, d'origine naturelle et sans superflu. Nos produits de la gamme TEN, sans parfum, sont adaptés aux peaux sensibles.</p>
+              <a href="javascript:void(0)" class="btn karl-btn btn-see-shop"  [routerLink]="['/shop/1']">VOIR LA BOUTIQUE</a>
+            </div>
+          </div>
+        </div>
+        <div class="pt-9 md:pt-18 item2">
+          <div class="grid grid-cols-2 gap-4 md:gap-5">
+            <div *ngFor="let i of [1,2,3,4]" class="product_ wow fadeInUpBig " data-wow-delay="0.2s" data-wow-duration="0.7s">
+              <a *ngIf="productsSM[i].stock > 0"  id="product-card" class="relative w-full product-card"  href="javascript:void(0)" >
+                <div class="card product-card">
+                  <div class="card-body">
+                      <div class="product-thumbnail position-relative">
+
+                          <a  [routerLink]="['/single-product',productsSM[i].idProduct]"  >
+                              <img class="first-img" width="100%" height="165px" [src]="prefUrlImage+productsSM[i].image" alt="thumbnail">
+                          </a>
+
+                          <ul class="product-links d-flex justify-content-center">
+
+                              <li>
+                                  <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#quick-view-'+productsSM[i].idProduct">
+                                      <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
+                                  </a>
+                              </li>
+                          </ul>
+
+
+                      </div>
+                      <div class="product-desc py-0">
+                          <h3 class="title" id="product-name" ><a href="javascript:void(0)">{{productsSM[i].name}}</a></h3>
+
+                          <div class="d-flex align-items-end justify-content-between" style="padding: 6px 0px; ">
+                              <h6 class="product-price" style="margin-bottom: 0;">{{productsSM[i].price}} €</h6>
+                              <button ><img src="/assets/img/icon/addtocart.png" height="20px" style="height: 20px;"  onclick="itemAdded()"  (click)="addToCart(productsSM[i])" /></button>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+             </a>
+             <a *ngIf="productsSM[i].stock <= 0" id="product-card" class="relative w-full product-card"  href="javascript:void(0)" >
+              <div class="card product-card">
+                <div class="card-body">
+                    <div class="product-thumbnail position-relative">
+                        <span class="badge badge-danger top-right">Stock épuisé</span>
+                        <a  [routerLink]="['/single-product',productsSM[i].idProduct]"  >
+                            <img class="first-img" width="100%" height="165px" [src]="prefUrlImage+productsSM[i].image" alt="thumbnail">
+                        </a>
+
+                        <ul class="product-links d-flex justify-content-center">
+
+                            <li>
+                                <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#quick-view-'+productsSM[i].idProduct">
+                                    <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
+                                </a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <div class="product-desc py-0">
+                        <h3 class="title" id="product-name" ><a href="javascript:void(0)">{{productsSM[i].name}}</a></h3>
+
+                        <div class="d-flex align-items-end justify-content-between" style="padding: 6px 0px; ">
+                            <h6 class="product-price" style="margin-bottom: 0;">{{productsSM[i].price}} €</h6>
+                            <!-- <button ><img src="/assets/img/icon/addtocart.png" height="20px" style="height: 20px;"  onclick="itemAdded()"  (click)="addToCart(productsSM[i])" /></button> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           </a>
+            </div>
+          </div>
+          <div  class="a-see-more " >
+            <a href="javascript:void(0)"  [routerLink]="['/shop/1']" style="font-weight: bold;">Voir plus <i class="fas fa-arrow-right "></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container grid grid-cols-1 pb-9 md:pb-18 md:grid-cols-2 md:col-gap-5" id="block2">
+        <div>
+          <div class="sticky  pt-9 md:pt-18 item" id="block2-item1" style="top: 75px;">
+            <h2 class="text-headline" style="font-family: Post Grotesk;">Maison Aya Helen</h2>
+            <div class="mt-5 font-mono md:mt-10 rich-text max-w-120">
+              <p style="font-family: Lettera,mono;">Des formules composées de 10 ingrédients ou moins, d'origine naturelle et sans superflu. Nos produits de la gamme TEN, sans parfum, sont adaptés aux peaux sensibles.</p>
+              <a href="javascript:void(0)" class="btn karl-btn btn-see-shop"  [routerLink]="['/shop/2']">VOIR LA BOUTIQUE</a>
+            </div>
+          </div>
+        </div>
+        <div class="pt-9 md:pt-18 item2"  id="block2-item2">
+          <div  class="grid grid-cols-2 gap-4 md:gap-5">
+            <div *ngFor="let i of [0,1,2,3]" class="product_ wow fadeInUpBig " data-wow-delay="0.2s" data-wow-duration="0.7s">
+              <a  *ngIf="productsAH[i].stock > 0" id="product-card" class="relative w-full product-card"   href="javascript:void(0)" >
+                <div class="card product-card">
+                  <div class="card-body">
+                      <div class="product-thumbnail position-relative">
+
+                          <a  [routerLink]="['/single-product',productsAH[i].idProduct]"  >
+                              <img class="first-img" width="100%" height="165px" [src]="prefUrlImage+productsAH[i].image" alt="thumbnail">
+                          </a>
+
+                          <ul class="product-links d-flex justify-content-center">
+
+                              <li>
+                                  <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#quick-view-'+productsAH[i].idProduct">
+                                      <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
+                                  </a>
+                              </li>
+                          </ul>
+
+
+                      </div>
+                      <div class="product-desc py-0">
+                          <h3 class="title" id="product-name" ><a href="javascript:void(0)">{{productsAH[i].name}}</a></h3>
+
+                          <div class="d-flex align-items-end justify-content-between" style="padding: 6px 0px; ">
+                              <h6 class="product-price" style="margin-bottom: 0;">{{productsAH[i].price}} €</h6>
+
+                              <button><img src="/assets/img/icon/addtocart.png" height="20px" style="height: 20px;"  onclick="itemAdded()" (click)="addToCart(productsAH[i])" ></button>
+
+                          </div>
+                      </div>
+                  </div>
+                </div>
+             </a>
+             <a  *ngIf="productsAH[i].stock <= 0" id="product-card" class="relative w-full product-card"   href="javascript:void(0)" >
+              <div class="card product-card">
+                <div class="card-body">
+                    <div class="product-thumbnail position-relative">
+
+                        <a  [routerLink]="['/single-product',productsAH[i].idProduct]"  >
+                            <img class="first-img" width="100%" height="165px" [src]="prefUrlImage+productsAH[i].image" alt="thumbnail">
+                        </a>
+
+                        <ul class="product-links d-flex justify-content-center">
+
+                            <li>
+                                <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#quick-view-'+productsAH[i].idProduct">
+                                    <span data-toggle="tooltip" data-placement="bottom" title="Quick view" class="icon-magnifier"></span>
+                                </a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <div class="product-desc py-0">
+                        <h3 class="title" id="product-name" ><a href="javascript:void(0)">{{productsAH[i].name}}</a></h3>
+
+                        <div class="d-flex align-items-end justify-content-between" style="padding: 6px 0px; ">
+                            <h6 class="product-price" style="margin-bottom: 0;">{{productsAH[i].price}} €</h6>
+
+                            <!-- <button><img src="/assets/img/icon/addtocart.png" height="20px" style="height: 20px;"  onclick="itemAdded()" (click)="addToCart(productsAH[i])" ></button> -->
+
+                        </div>
+                    </div>
+                </div>
+              </div>
+           </a>
+            </div>
+          </div>
+          <div  class="a-see-more">
+            <a href="javascript:void(0)"  [routerLink]="['/shop/2']" style="font-weight: bold;">Voir plus <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+      <!-- <section class="welcome_area">
+          <div class="welcome_slides owl-carousel">
+
+              <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(assets/img/bg-img/bg-1.jpg);">
+                  <div class="container h-100">
+                      <div class="row h-100 align-items-center">
+                          <div class="col-12">
+                              <div class="welcome_slide_text">
+                                  <h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
+                                  <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Fashion Trends</h2>
+                                  <a href="#" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Shop Now</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(assets/img/bg-img/bg-4.jpg);">
+                  <div class="container h-100">
+                      <div class="row h-100 align-items-center">
+                          <div class="col-12">
+                              <div class="welcome_slide_text">
+                                  <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
+                                  <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Summer Collection</h2>
+                                  <a href="#" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">Check Collection</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(assets/img/bg-img/bg-2.jpg);">
+                  <div class="container h-100">
+                      <div class="row h-100 align-items-center">
+                          <div class="col-12">
+                              <div class="welcome_slide_text">
+                                  <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
+                                  <h2 data-animation="bounceInDown" data-delay="500ms" data-duration="500ms">Women Fashion</h2>
+                                  <a href="#" class="btn karl-btn" data-animation="fadeInRightBig" data-delay="1s" data-duration="500ms">Check Collection</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <div class="section_heading text-center">
+                      <div  class="title_">Nos Boutiques</div>
+                      <div class="separateur"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <section class="top_catagory_area d-md-flex clearfix hide-mobile" id="top_catagory_area-hide-mobile">
+
+        <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(assets/img/bg-img/bg-2.jpg);">
+            <div class="catagory-content">
+                <h6>La beauté n'aura plus de secret pour vous !</h6>
+                <h2>Secret de Mafa</h2>
+                <a href="javascript:void(0)" class="btn karl-btn" [routerLink]="['/shop/1']">VOIR LA BOUTIQUE</a>
+            </div>
+        </div>
+
+        <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(assets/img/bg-img/bg-3.jpg);">
+            <div class="catagory-content">
+                <h6>Des sacs beaux et originaux !</h6>
+                <h2>Maison Ayahelen</h2>
+                <a href="javascript:void(0)" class="btn karl-btn" [routerLink]="['/shop/2']">VOIR LA BOUTIQUE</a>
+            </div>
+        </div>
+      </section>
+      <div class="mobile-only">
+      <section class="top_catagory_area d-md-flex clearfix  " id="top_catagory_area">
+
+        <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(assets/img/bg-img/bg-2.jpg);">
+            <div class="catagory-content">
+                <h6>La beauté n'aura plus de secret pour vous !</h6>
+                <h2>Secret de Mafa</h2>
+                <a href="javascript:void(0)" class="btn karl-btn" [routerLink]="['/shop/1']" >VOIR LA BOUTIQUE</a>
+            </div>
+        </div>
+
+        <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(assets/img/bg-img/bg-3.jpg);">
+            <div class="catagory-content">
+                <h6>Des sacs beaux et originaux !</h6>
+                <h2>Maison Ayahelen</h2>
+                <a href="javascript:void(0)" class="btn karl-btn" [routerLink]="['/shop/2']" >VOIR LA BOUTIQUE</a>
+            </div>
+        </div>
+      </section>
+      </div>
+
+      <section class="new_arrivals_area section_padding_100_0 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_heading text-center">
+                        <div class="title_">Nos Nouveautés</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="karl-projects-menu mb-100">
+            <div class="text-center portfolio-menu">
+                <button class="btn active" data-filter="*">Tous</button>
+                <button class="btn" data-filter=".sm">Secret de Mafa</button>
+                <button class="btn" data-filter=".ma">Maison Ayahelen</button>
+            </div>
+        </div>
+
+
+      </section>-->
+
+
+  <app-footer></app-footer>
+</div>
+
+
+<app-modal-add-to-cart [products]="products"></app-modal-add-to-cart>
+<app-modal-quick-view [products]="products"></app-modal-quick-view>
+
+
+
+
+
+
+

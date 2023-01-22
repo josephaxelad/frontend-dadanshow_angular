@@ -1,0 +1,71 @@
+<div class="modal fade style3" [id]="'order-details'+ userOrder.idOrder " tabindex="-1" role="dialog" *ngFor="let userOrder of userOrders">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header justify-content-center bg-dark">
+              <h5 class="modal-title" id="add-to-cartCenterTitle"> <span class="ion-checkmark-round"></span> Détails de la commande </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-lg-8 divide-right">
+                      <div class="row">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Produit</th>
+                              <th scope="col">Prix</th>
+                              <th scope="col">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let cmdLine of userOrder.cmdLine">
+
+                              <td>
+                                <div fxLayout="column">
+                                  <div fxLayout="row">
+                                    <div fxFlex="20" fxFlex.xs="40" >
+                                      <a  href="javascript:void(0)" data-dismiss="modal" [routerLink]='["/single-product",cmdLine.product.id]'>
+                                        <img width="50px" height="50px" [src]="prefUrlImage+cmdLine.product.image" />
+                                      </a>
+                                    </div>
+                                    <span fxFlex><span class="qty" >{{cmdLine.qte}}</span>&nbsp;{{cmdLine.product.name}}</span>
+                                  </div>
+                                </div>
+
+
+                              </td>
+                              <td>{{cmdLine.product.price}} €</td>
+                              <td>{{(cmdLine.product.price * cmdLine.qte).toFixed(2)}} €</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div class="col-lg-4">
+                      <div class="modal-cart-content">
+                          <p class="cart-products-count"></p>
+                          <p *ngIf="userOrder.state==1"><strong>Statut de la commande :</strong>&nbsp; En cours de livraison  </p>
+                          <p *ngIf="userOrder.state==2"><strong>Statut de la commande :</strong>&nbsp; Livrée  </p>
+                          <p><strong>Crée le :</strong>&nbsp; {{userOrder.createDat | date:"dd/MM/y" }} à {{userOrder.createDat | date:"HH:mm"}} </p>
+                          <p><strong>Montant total des produits:</strong>&nbsp; {{userOrder.price}} €</p>
+                          <p><strong>Livraison:</strong>&nbsp; {{ userOrder.deliveryPrice}} €</p>
+                          <p><strong>Lieu :</strong>&nbsp; {{ userOrder.delivery.country.name+", "+userOrder.delivery.city }} </p>
+                          <!-- <p><strong>Taxes 20% :</strong>&nbsp;</p> -->
+                          <p><strong>Montant Total:</strong>&nbsp; {{((+userOrder.price)+(+userOrder.deliveryPrice)).toFixed(2)}} €</p>
+                          <!-- <div class="cart-content-btn">
+                              <button type="button" class="btn theme-btn--dark1 btn--md mt-4 mr-2" data-dismiss="modal">Continue
+                          shopping</button>
+                              <button routerLink="/checkout" class="btn theme-btn--dark1 btn--md mt-4" data-dismiss="modal"><i
+                              class="ion-checkmark-round"></i>Proceed to
+                          checkout</button>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

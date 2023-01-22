@@ -1,0 +1,124 @@
+<app-sidenav></app-sidenav>
+<div id="wrapper" style="background-color: #dec7a4;">
+<app-header state="active"></app-header>
+
+<div class="register pt-40 pb-80">
+  <div class="container">
+      <div fxLayout="row" fxFill>
+          <div fxLayout="column" fxFill>
+              <h3 class="title text-capitalize mb-30 pb-25 text-center">Créer un compte</h3>
+              <div fxLayout="row" fxFill fxLayoutAlign="center center" >
+                  <form fxFlex="70" fxFlex.xs="100" class="log-in-form" [formGroup]="registerForm" style="background-color: #f8f9fa;">
+                      <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessage">{{errorMessage}} </button>
+                      <button class="alert alert-success alert-block col-12" role="alert" *ngIf="successMessage">{{successMessage}} </button>
+                      <div class="order-asguest theme1 mb-3 text-center">
+                          <span>Avez vous déja un compte?</span>
+                          <a class="text-muted hover-color" routerLink="/login">Connectez-vous!</a>
+                      </div>
+                      <!-- <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Social title
+                        </label>
+                          <div class="col-md-6">
+                              <div class="d-flex flex-wrap">
+                                  <div class="custom-radio">
+                                      <input value="1" type="radio" id="test1" name="sexe" formControlName="sexe" >
+                                      <label for="test1">Mr</label>
+                                  </div>
+                                  <div class="custom-radio">
+                                      <input value="2" type="radio" id="test2" name="sexe" formControlName="sexe" >
+                                      <label for="test2">Mrs</label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> -->
+
+                      <!-- <div class="form-group row">
+                          <label for="pseudo" class="col-md-3 col-form-label">Pseudo</label>
+                          <div class="col-md-6">
+                              <input type="text" id="pseudo" class="form-control" name="pseudo" formControlName="pseudo">
+                          </div>
+                      </div> -->
+
+                      <div class="form-group row">
+                          <label for="firstname" class="col-md-3 col-form-label">Prénoms</label>
+                          <div class="col-md-6">
+                              <input type="text" id="firstname" class="form-control" name="firstname" formControlName="firstname">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="lastname" class="col-md-3 col-form-label">Nom</label>
+                          <div class="col-md-6">
+                              <input type="text" id="lastname" class="form-control" name="lastname" formControlName="lastname">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="email" class="col-md-3 col-form-label">Email</label>
+                          <div class="col-md-6">
+                              <input type="email" id="email" class="form-control" name="email" formControlName="email"  ngModel [email]="true">
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <label for="Password" class="col-md-3 col-form-label">Mot de passe</label>
+                          <div class="col-md-6">
+                              <div class="input-group mb-2 mr-sm-2">
+                                  <input [type]="typePass1" class="form-control" id="Password" name="password" formControlName="password">
+                                  <div class="input-group-prepend">
+                                      <button type="button" class="input-group-text theme-btn--dark1 btn--md show-password" (click)="changeShow()"><i [ngClass]="{'far fa-eye': !isShow,'fas fa-eye-slash': isShow}" ></i></button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="Password" class="col-md-3 col-form-label">Retapez le mot de passe</label>
+                        <div class="col-md-6">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <input [type]="typePass2" class="form-control" id="repassword" name="repassword" formControlName="repassword">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="input-group-text theme-btn--dark1 btn--md show-password" (click)="changeShow_()"><i [ngClass]="{'far fa-eye': !isShow_,'fas fa-eye-slash': isShow_}" ></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                      <!-- <div class="form-group row">
+                          <label for="birthdate" class="col-md-3 col-form-label">Birthdate</label>
+                          <div class="col-md-6">
+                              <input type="text" class="form-control" id="birthdate" placeholder="MM/DD/YYYY" name="dateBirth" formControlName="dateBirth">
+                          </div>
+                          <div class="col-md-3"><label><span class="optional">
+                                    Optional
+                                </span></label>
+                          </div>
+                      </div> -->
+                      <div class="form-group row pb-3 text-center">
+                        <!-- <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="check-box-inner pt-0">
+                                <div class="filter-check-box">
+                                    <input type="checkbox" id="20820">
+                                    <label for="20820">Receive offers from our partners</label>
+                                </div>
+                                <div class="filter-check-box">
+                                    <input type="checkbox" id="20821">
+                                    <label for="20821">Sign up for our newsletter</label>
+                                    <p class="pl-25">You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</p>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="login-form-links col-12">
+                            <div class="sign-btn text-center">
+                                <button (click)="onSubmit()" class="btn theme-btn--dark1 btn--md" [disabled]="registerForm.invalid">Créer</button>
+                            </div>
+                        </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<app-footer></app-footer>
+</div>

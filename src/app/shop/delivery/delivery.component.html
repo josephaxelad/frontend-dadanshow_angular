@@ -1,0 +1,177 @@
+<div id="wrapper" style="background-color: #dec7a4;">
+<app-header state="active" [orderState]="1"></app-header>
+<div  fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="70" fxFlex.xs="100">
+    <app-breadcrumb [step]='2' ></app-breadcrumb>
+  </div>
+</div>
+
+<div fxLayout="column">
+  <!-- title -->
+  <div fxLayout="row" fxFlex="10" fxFill fxLayoutAlign="center center">
+    <h5>Choisissez une adresse de livraison</h5>
+  </div>
+  <button
+  class="alert alert-danger alert-block col-12" role="alert"
+  *ngIf="errorMessage">
+    {{errorMessage}}
+  </button>
+  <!-- zone liste de livraison -->
+  <div fxLayout="row" fxFill >
+    <div fxLayout="column" fxFill [formGroup]="deliveryForm" fxLayoutGap="7px" >
+      <!-- liste de livraison -->
+      <div  fxLayout="row" fxFill fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxLayoutGap="7px" *ngIf="userDeliveriesAddress.length">
+          <div class="card" *ngFor="let userDeliveryAddress of userDeliveriesAddress; let i = index">
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio"  [id]="'flexRadioDefault'+i"  formControlName="delivery" name="delivery"  [value]="i" (change)="deliveryChange()">
+                <div fxLayout="row" fxLayoutAlign="space-between center" >
+                  <label class="form-check-label" [for]="'flexRadioDefault'+i">
+                    {{userDeliveryAddress.address}}
+                  </label>
+                  <span><i class="fas fa-home fa-lg"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ajouter nouvelle adresse de livraison -->
+      <div  fxLayout="row" fxFill fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="70" fxFlex.xs="95" fxLayoutGap="4px">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio"  id="flexRadioDefault"  formControlName="delivery" name="delivery" value="-1" (change)="deliveryChange()">
+                <label class="form-check-label" for="flexRadioDefault">
+                  <span style="color: rgb(120, 221, 18);"><i class="fas fa-plus fa-lg"></i></span>  Ajouter nouvelle adresse de livraison
+                </label>
+              </div>
+            </div>
+            <div class="collapse" id="collapseExample" [ngClass]="{'show': isShowNewDeliveryForm}">
+              <div class="card-body">
+                <div fxLayout="column" fxFill  [formGroup]="newDeliveryForm">
+                  <div fxLayout="row" fxFlex=90>
+                    <div class="form-floating mb-3" fxFill>
+                      <input type="text" class="form-control"  formControlName="address" name="address">
+                      <label for="floatingInput">Adresse</label>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxFlex=90>
+                    <div class="form-floating mb-3" fxFill>
+                      <input type="text" class="form-control"  formControlName="zip" name="zip">
+                      <label for="floatingInput">Code Postal</label>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxFlex=90>
+                    <div class="form-floating mb-3" fxFill>
+                      <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="country" name="country">
+                        <option value="0">Choisissez un pays :</option>
+                        <option [value]="country.id" *ngFor="let country of countries">{{country.name}}</option>
+                      </select>
+                      <label for="floatingSelect">Pays</label>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxFlex=90>
+                    <div class="form-floating mb-3" fxFill>
+                      <input type="text" class="form-control"  formControlName="city" name="city">
+                      <label for="floatingInput">Ville</label>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxFlex=90>
+                    <div class="form-floating mb-3" fxFill>
+                      <input type="text" class="form-control"  formControlName="phone" name="phone">
+                      <label for="floatingInput">Téléphone</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessageNewDeliveryForm">
+              {{errorMessageNewDeliveryForm}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- zone button -->
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="150px" fxFill>
+    <div  fxLayout="column"  fxFlex="30" fxFlex.xs="90">
+      <a href="javascript:void(0)" class="button-delivery"(click)="addNewUserDeliveryAddress()">Continuer</a>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-12">
+      <h3>Choisissez une méthode de livraison</h3>
+    </div>
+  </div>
+  <div class="row" [formGroup]="deliveryForm">
+    <div class="col">
+      <div class="col">
+        <div class="list-group">
+          <div style="display: flex;align-items: center;" >
+            <input type="radio" formControlName="delivery" id="" name="delivery" value="1" (change)="deliveryChange()" >
+            <div style="width: 100%;" for="" class="list-group-item">Adresse de livraison 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <input type="radio" formControlName="delivery" id="" name="delivery" value="0"  (change)="deliveryChange()" ><label for="">Ajouter une nouvelle adresse</label>
+        <div class="card-body newDeliveryForm" [ngClass]="{'hideNewDeliveryForm': !isShowNewDeliveryForm, 'showNewDeliveryForm': isShowNewDeliveryForm}">
+          <form class="log-in-form"  >
+            <div class="form-group row">
+              <label for="" class="col-md-3 col-form-label">Adresse</label>
+              <div class="col-md-6">
+                  <input type="" class="form-control" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-md-3 col-form-label">Code Postal</label>
+              <div class="col-md-6">
+                  <input type="" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-md-3 col-form-label">Pays</label>
+              <div class="col-md-6 ">
+                <select  class="custom-select">
+                  <option value="0" >Choisir un pays :</option>
+                  <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-md-3 col-form-label">Ville</label>
+              <div class="col-md-6 ">
+                <input type="" class="form-control" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-md-3 col-form-label">Téléphone</label>
+              <div class="col-md-6">
+                  <input type="" class="form-control">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-12">
+      <a href="javascript:void(0)" class="btn karl-checkout-btn" routerLink="/checkout">Continuer</a>
+    </div>
+  </div>
+</div> -->
+<app-footer></app-footer>
+</div>
+
+<!-- "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", -->

@@ -120,7 +120,9 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: #f33535;
+    /* color: #f33535; */
+
+    color:#8ffda5;
 }
 
 button,
@@ -305,7 +307,8 @@ span.required {
 }
 
 .theme1 .hover-color:hover {
-    color: #f33535 !important;
+    color: #8ffda5;
+    /* color: #f33535 !important; */
 }
 
 .w-md-50 {
@@ -1429,7 +1432,7 @@ textarea:active::placeholder {
 
 .theme-btn--dark1:hover {
     color: #ffffff;
-    background: #f33535;
+    background: #debb7b;
 }
 
 .theme-btn--dark2 {
@@ -1439,7 +1442,7 @@ textarea:active::placeholder {
 
 .theme-btn--dark2:hover {
     color: #ffffff;
-    background: #ff7519;
+    background:  #debb7b;
 }
 
 .theme-btn--dark3 {
@@ -1456,7 +1459,7 @@ textarea:active::placeholder {
 
 .theme-btn--dark3:hover {
     color: #ffffff;
-    background: #10a341;
+    background:  #debb7b;
 }
 
 .btn--sm {

@@ -1,0 +1,189 @@
+<app-sidenav></app-sidenav>
+<div id="wrapper" style="background-color: #dec7a4;">
+<app-header state="active" ></app-header>
+<div class="my-account pt-40 pb-80">
+<div class="container-fluid">
+  <div class="row" style="display: flex;justify-content: center;">
+    <div class="col-12">
+      <h3 class="title text-capitalize mb-30 pb-25 text-center titre" >Mes adresses de livraison</h3>
+      <!-- <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessage">{{errorMessage}} </button> -->
+      <button class="alert alert-success alert-block col-12" role="alert" *ngIf="successMessage">{{successMessage}} </button>
+      <button class="alert alert-warning alert-block col-12" role="alert" *ngIf="warningMessage">{{warningMessage}} </button>
+    </div>
+    <div class="accordion accordion-flush col-lg-9" id="accordionFlushExample">
+      <!-- Add new delivery address -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <span style="color: rgb(120, 221, 18);"><i class="fas fa-plus fa-lg"></i></span>&nbsp;Ajouter une nouvelle adresse de livraison
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse"  [ngClass]="{'show': addNewDeliveryAddressExpanded}" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <form class="log-in-form" [formGroup]='addNewDeliveryAddressForm' style="background-color: #f8f9fa;" >
+              <div class="form-group row">
+                <label for="" class="col-md-3 col-form-label">Adresse</label>
+                <div class="col-md-6">
+                    <input type="" class="form-control"  formControlName="address" name="address">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-md-3 col-form-label">Code Postal</label>
+                <div class="col-md-6">
+                    <input type="" class="form-control"  formControlName="zip" name="zip">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-md-3 col-form-label" >Pays</label>
+                <div class="col-md-6 ">
+                  <select  class="custom-select" formControlName="country" name="country">
+                    <option value="0">Choisissez un pays :</option>
+                    <option *ngFor="let country of countries" [value]="country.id" >{{country.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-md-3 col-form-label">Ville</label>
+                <div class="col-md-6 ">
+                  <input  class="form-control"  formControlName="city" name="city">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="" class="col-md-3 col-form-label">Téléphone</label>
+                <div class="col-md-6">
+                    <input type="" class="form-control"  formControlName="phone" name="phone">
+                </div>
+              </div>
+              <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessageAddNewDeliveryAddressForm">
+                {{errorMessageAddNewDeliveryAddressForm}}
+              </button>
+              <div class="form-group row pb-3 ">
+                <div class="col-md-6 offset-md-3">
+                    <div class="login-form-links">
+                        <div class="sign-btn">
+                            <button class="btn theme-btn--dark1 btn--md mr-2" (click)="addNewDeliveryAddress()"  >Ajouter</button>
+                            <button class="btn theme-btn--dark1 btn--md mr-2" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" >Fermer</button>
+                        </div>
+
+                    </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Choose delivery address -->
+      <div *ngIf="userDeliveries.length">
+        <div class="accordion-item" *ngFor="let userDelivery of userDeliveries; let i = index">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button (click)="initUpdateDeliveryAddressForm(userDelivery)" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse'+i" aria-expanded="false" [aria-controls]="'flush-collapseTwo'">
+              <i class="fas fa-home fa-lg"></i>&nbsp; {{userDelivery.address+"  "+userDelivery.country.name+","+userDelivery.city}}
+            </button>
+          </h2>
+          <div [id]="'flush-collapse'+i" class="accordion-collapse collapse"  [ngClass]="{'show': updateDeliveryAddressExpanded}" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <form class="log-in-form" [formGroup]='updateDeliveryAddressForm' style="background-color: #f8f9fa;" >
+                <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessage">{{successMessage}} </button>
+
+                <div class="form-group row">
+                  <label for="" class="col-md-3 col-form-label">Adresse</label>
+                  <div class="col-md-6">
+                      <input type="" class="form-control"  formControlName="address" name="address">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-3 col-form-label">Code Postal</label>
+                  <div class="col-md-6">
+                      <input type="" class="form-control"  formControlName="zip" name="zip" >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-3 col-form-label" >Pays</label>
+                  <div class="col-md-6 ">
+                    <select  class="custom-select" formControlName="country" name="country">
+                      <option *ngFor="let country of countries" [value]="country.id" >{{country.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-3 col-form-label">Ville</label>
+                  <div class="col-md-6 ">
+                    <input  class="form-control"  formControlName="city" name="city" [value]="userDelivery.city">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="" class="col-md-3 col-form-label">Téléphone</label>
+                  <div class="col-md-6">
+                      <input type="" class="form-control"  formControlName="phone" name="phone" [value]="userDelivery.phone">
+                  </div>
+                </div>
+                <button class="alert alert-danger alert-block col-12" role="alert" *ngIf="errorMessageUpdateDeliveryAddressForm">{{errorMessageUpdateDeliveryAddressForm}} </button>
+                <div class="form-group row pb-3 ">
+                  <div class="col-md-6 offset-md-3">
+                      <div class="login-form-links">
+                          <div class="sign-btn">
+                              <button class="btn theme-btn--dark1 btn--md mr-2" (click)="updateDeliveryAddress(userDelivery)" >Sauvegarder les modifications</button>
+                              <button class="btn theme-btn--dark1 btn--md mr-2"  data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse'+i" (click)="deleteDeliveryAddress(userDelivery)" >Supprimer</button>
+                              <!-- <button class="btn theme-btn--dark1 btn--md mr-2" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >Fermer</button> -->
+                          </div>
+
+                      </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-12 " style="display: flex;justify-content: center;">
+      <div id="accordion" class="col-lg-9">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Ajouter une nouvelle adresse
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Choose delivery address -->
+  </div>
+  <!-- <div class="row" *ngIf="userDeliveries.length">
+    <div class="col-12 col-lg-9" style="margin: auto ;">
+      <ul class="list-group" >
+        <li class="list-group-item" *ngFor="let userDelivery of userDeliveries">
+          <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#order-details'+ userDelivery.idUserDeliveries ">
+            <div style="display: flex;justify-content: space-between;align-items: flex-start;">
+              <div>{{ userDelivery | json}}</div>
+              <div><i class="fas fa-trash-alt"></i></div>
+            </div>
+            <div  style="display: flex;justify-content: space-between;align-items: flex-end;padding-top: 10px;">
+              <div id="my-order-price">{{userDelivery.country+","+userDelivery.city }}</div>
+              <div ><a style="font-weight: bold;color: black;" href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#order-details'+ userOrder.idOrder ">détails <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div> -->
+  <!-- <div class="row" *ngIf="!userDeliveries.length">
+    <div class="col-12" >
+      <h3 class="title mb-30 pb-25 text-capitalize">Vous n'avez aucune commande !</h3>
+    </div>
+  </div> -->
+</div>
+</div>
+<app-footer></app-footer>
+</div>
+
+<app-modal-order-details></app-modal-order-details>

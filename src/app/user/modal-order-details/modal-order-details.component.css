@@ -1,0 +1,13 @@
+.qty {
+  /* background-color: #dee2e6; */
+  background-color: #495057;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  top: 5px;
+  width: 20px;
+
+}

@@ -1,0 +1,68 @@
+    /* ----------------------------------------------------------
+    :: Template Name: Karl - Fashion Ecommerce Template
+    :: Author: Colorlib
+    :: Author URL: https://colorlib.com
+    :: Description: Karl is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform. It's super responsive for all      Desktop/Mobile layout.
+    :: Version: 1.0
+    :: Created: 09 January 2018
+    :: Last Updated: 09 January 2018
+    ---------------------------------------------------------- */
+
+    /* -------------------------------------------------
+    ============ PLACE YOUR CUSTOM CSS HERE ============
+    ------------------------------------------------- */
+
+    .title_{
+      font-size: 48px;
+      /* #8d8c8e */
+      font-family: papyrus;
+      color:  #ccac00;
+    }
+    @media (max-width: 990px){
+      .title_{
+        font-size: 30px;
+        /* #8d8c8e */
+        font-family: papyrus;
+        color:  #ccac00;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .titre{
+        font-size: 25px !important;
+        font-family: 'Courier New', monospace !important;
+        font-weight: bold !important;
+      }
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .reveal-visble{
+      opacity: 1;
+      transform: translateY(0);
+      transition: 3s cubic-bezier(.5, 0, 0, 1);
+    }
+
+    /* .reveal-loaded .reveal [class*="reveal-"] {
+
+  } */
+
+  .reveal-loaded [class*="reveal"]{
+      transition: 1s cubic-bezier(.5, 0, 0, 1);
+  }
+
+  /* On ajoute du délai */
+  .reveal-loaded .reveal-2 {
+      transition-delay: .1s;
+  }
+
+  .reveal-loaded .reveal-3 {
+      transition-delay: .2s;
+  }
+
+  .reveal-loaded .reveal-4 {
+      transition-delay: .3s;
+  }

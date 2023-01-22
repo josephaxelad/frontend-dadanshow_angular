@@ -1,0 +1,54 @@
+<div class="catagories-side-menu" id="catagories-side-menu" >
+  <!-- Close Icon -->
+  <div id="sideMenuClose" onclick="closeNav()">
+      <i class="ti-close"></i>
+  </div>
+  <!--  Side Nav  -->
+  <div class="nav-side-menu">
+      <div class="menu-list">
+          <h6>Mon compte</h6>
+          <!-- <ul id="menu-contentt" class="menu-contentt collapse out">
+              <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                  <a href="javascript:void(0)" >Mes commandes <span class="arrow"></span></a>
+              </li>
+              <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                  <a href="javascript:void(0)">Mes envies <span class="arrow"></span></a>
+              </li>
+              <li data-toggle="collapse" data-target="#footwear" class="collapsed">
+                  <a href="javascript:void(0)">Modifier mes informations<span class="arrow"></span></a>
+                  <ul class="sub-menu collapse" id="footwear">
+                      <li><a href="javascript:void(0)">Changer le mot de passe</a></li>
+                  </ul>
+              </li>
+              <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                  <a href="javascript:void(0)">Se connecter <span class="arrow"></span></a>
+              </li>
+              <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                  <a href="#">Se déconnecter <span class="arrow"></span></a>
+              </li>
+
+              <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                  <a href="#">Mes commandes <span class="arrow"></span></a>
+              </li>
+          </ul> -->
+          <div class="list-group">
+            <a href="javascript;void(0)" class="list-group-item list-group-item-action " *ngIf="isAuth" routerLink="/my-orders">Mes commandes</a>
+            <a href="#" class="list-group-item list-group-item-action" *ngIf="isAuth">Mes envies</a>
+            <a href="#" class="list-group-item list-group-item-action " data-toggle="collapse" href="#collapseModInfoUser" *ngIf="isAuth">
+              Modifier mon compte
+            </a>
+            <div class="collapse" id="collapseModInfoUser" *ngIf="isAuth">
+              <div class="card card-body">
+                <li><a href="javascript:void(0)" class="list-group-item list-group-item-action" routerLink='/edit-password'>Changer le mot de passe</a></li>
+                <li><a href="javascript:void(0)" class="list-group-item list-group-item-action" routerLink='/edit-user'>Changer mes informations personnelles</a></li>
+              </div>
+            </div>
+            <a href="#" class="list-group-item list-group-item-action" *ngIf="!isAuth" routerLink="/login">Se connecter</a>
+            <a href="#" class="list-group-item list-group-item-action" *ngIf="!isAuth" routerLink="/register">Créer un compte</a>
+            <a href="#" class="list-group-item list-group-item-action " *ngIf="isAuth"  onclick="closeNav()" data-toggle="modal" data-target="#btnLogout">Se déconnecter</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<app-modal-logout (isAuth)="logout($event)" ></app-modal-logout>

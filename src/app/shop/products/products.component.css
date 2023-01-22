@@ -1,0 +1,224 @@
+.card-body{
+  padding: 0;
+}
+
+.card{
+  border: none;
+  /* background-color: #f5f5f5; */
+}
+
+#container-title{
+  border-bottom: 2px solid whitesmoke;
+  margin-top: -15px;
+  margin-bottom: 30px;
+}
+#product-name{
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 44px;
+  margin: 0px;
+  font-weight: bold;
+  font-family:'Courier New', Courier, monospace, sans-serif;
+  color: rgb(107, 106, 106);
+}
+
+/* #product-name:hover,a:hover{
+  color:#8ffda5;
+} */
+@media(max-width: 640px){
+  #product-card{
+    padding: 5px;
+  }
+
+}
+
+.item2{
+  background-color: whitesmoke;
+  padding: 40px 20px;
+  margin-top: 25px;
+}
+
+#logo{
+  width:10%;
+}
+
+.dropdown-item:hover{
+  background-color: darkgray;
+}
+
+.animate__animated.animate__pulse {
+  --animate-duration: 7s;
+}
+
+.shadow{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+/* Search */
+[hidden] {
+  display: none;
+}
+
+/* html {
+  height: 100%;
+} */
+
+/* fieldset {
+  margin: 0;
+  padding: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-before: 0;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+  -webkit-padding-after: 0;
+  border: 0;
+} */
+
+/* legend {
+  margin: 0;
+  padding: 0;
+  display: block;
+  -webkit-padding-start: 0;
+  -webkit-padding-end: 0;
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+.s128 {
+  min-height: 100vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background: #d8f4fe;
+  padding: 15px;
+}
+
+.s128 form {
+  width: 100%;
+  max-width: 570px;
+  margin: 0;
+}
+
+   /*    {
+  margin-bottom: 80px;
+} */
+
+      .input-field {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      /* justify-content: center; */
+}
+
+      .input-field input {
+  height: 60px;
+  width: 60px;
+  border: 0;
+  display: block;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+      .input-field input.placeholder {
+  color: #ccc;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 1;
+}
+
+      .input-field input:-moz-placeholder {
+  color: #ccc;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 1;
+}
+
+      .input-field input::-webkit-input-placeholder {
+  color: #ccc;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 1;
+}
+
+      .input-field input:hover,       .input-field input:focus {
+  box-shadow: none;
+  outline: 0;
+}
+
+      .input-field.first .clear {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  background: transparent;
+  z-index: 2;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+    .input-field.first .clear svg {
+  fill: #ccc;
+  width: 22px;
+  height: 22px;
+}
+
+     .input-field.first .clear:hover,       .input-field.first .clear:focus {
+  box-shadow: none;
+  outline: 0;
+}
+
+      .input-field.first .clear:hover svg,       .input-field.first .clear:focus svg {
+  fill: #333;
+}
+
+      .input-field.first input {
+  padding: 10px 0 10px 60px;
+  border-radius: 30px;
+  width: 60px;
+  transition: width .2s ease-in;
+  background-image: url("/assets/img/icon/loupe.svg");
+  /* background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='%23ccc' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3e%3c/svg%3e"); */
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: 34px 34px;
+}
+
+      .input-field.first input:focus {
+  width: 100%;
+  padding-right: 60px;
+}
+
+
+      .input-field.first input.isFocus {
+  width: 100%;
+}
+
+      .input-field.first input.isFocus ~ .clear {
+  opacity: 1 !important;
+}
+
+
+.input-field.first input:focus ~ .clear {
+  opacity: 1 !important;
+}
+/*# sourceMappingURL=Searchs_128.css.map */
+
+
+/*  */

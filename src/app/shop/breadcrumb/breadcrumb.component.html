@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="breadcrumb">
+    <button class="item " [ngClass]="cartState">
+      <span class="arrow"></span>
+      <span class="hide-mobile" >Votre panier</span>
+      <span class="show-mobile" >Votre panier</span>
+    </button>
+    <button class="item " [routerLink]="['/delivery']" [ngClass]="deliveryState" [disabled]="deliveryDisabled">
+      <span class="arrow"></span>
+      <span class="hide-mobile">Livraison</span>
+      <span class="show-mobile">Livraison</span>
+    </button>
+    <button class="item " [routerLink]="['/checkout']" [ngClass]="checkoutState" [disabled]="checkoutDisabled">
+      <span class="arrow"></span>
+      <span class="hide-mobile">Paiment</span>
+      <span class="show-mobile">Paiment</span>
+    </button>
+  </div>
+</div>
